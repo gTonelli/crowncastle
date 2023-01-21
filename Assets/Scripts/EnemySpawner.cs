@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     public int numEnemiesToSpawn;
     public GameObject EnemyPrefab;
     private bool enemiesAreSpawning;
+    private Vector3 lastEnemyPos; // #TODO prevent enemies from spawning on each other.
 
     private void OnEnable()
     {
@@ -22,7 +23,6 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        numEnemiesToSpawn = 2;
         enemiesAreSpawning = false;
     }
 
@@ -34,10 +34,11 @@ public class EnemySpawner : MonoBehaviour
             for (int _ = 0; _ < numEnemiesToSpawn; ++_)
             {
                 await Task.Delay(2500 + Random.Range(0, 1250));
-                Instantiate(EnemyPrefab, transform.position, new Quaternion(0f, -1f, 0f, 1f));
+                // #TODO
+                Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
             }
             enemiesAreSpawning = false;
-            Debug.Log("\\n\nEnemies Done spawning\n\\n");
+            Debug.Log("Enemies Done spawning");
         }
 
     }

@@ -12,7 +12,6 @@ public class EventManager : MonoBehaviour
     {
         if (Input.GetButton("Fire1")) // #TODO Replace 
         {
-            Debug.Log("Changed to nighttime");
             OnChangeToNightTime?.Invoke(); // #TODO 
         }
     }
