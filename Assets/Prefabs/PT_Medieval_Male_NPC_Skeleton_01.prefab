@@ -608,8 +608,8 @@ GameObject:
   - component: {fileID: 1948329710165024164}
   - component: {fileID: 1700404937}
   - component: {fileID: 1700404936}
-  - component: {fileID: 7347977848874654867}
   - component: {fileID: 5679618138765828507}
+  - component: {fileID: 5578293971722521156}
   m_Layer: 8
   m_Name: PT_Medieval_Male_NPC_Skeleton_01
   m_TagString: Untagged
@@ -682,19 +682,6 @@ CapsuleCollider:
   m_Height: 1.7289977
   m_Direction: 1
   m_Center: {x: 0.025367796, y: 0.90943086, z: 0.011180848}
---- !u!114 &7347977848874654867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948329710155509286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe99d5e87e2d4c4cb28cbc44dc8238d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
 --- !u!195 &5679618138765828507
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -717,6 +704,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5578293971722521156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948329710155509286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a69893969a389745a9bfbf05f9b63c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonGameObject: {fileID: 0}
+  target: {fileID: 0}
+  moveSpeed: 2
+  animator: {fileID: 0}
+  waitTime: 0.1
+  attackTriggerDistance: 1.5
+  agent: {fileID: 0}
 --- !u!1 &1948329710155509288
 GameObject:
   m_ObjectHideFlags: 0

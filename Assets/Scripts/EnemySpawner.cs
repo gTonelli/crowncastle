@@ -28,18 +28,20 @@ public class EnemySpawner : MonoBehaviour
 
     private async void SpawnSkeletons()
     {
-        if (!enemiesAreSpawning)
-        {
-            enemiesAreSpawning = true;
-            for (int _ = 0; _ < numEnemiesToSpawn; ++_)
-            {
-                await Task.Delay(2500 + Random.Range(0, 1250));
-                // #TODO
-                Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
-            }
-            enemiesAreSpawning = false;
-            Debug.Log("Enemies Done spawning");
-        }
+        Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
+
+        // if (!enemiesAreSpawning)
+        // {
+        //     enemiesAreSpawning = true;
+        //     for (int _ = 0; _ < numEnemiesToSpawn; ++_)
+        //     {
+        //         await Task.Delay(2500 + Random.Range(0, 1250));
+        //         // #TODO
+        //         Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
+        //     }
+        //     enemiesAreSpawning = false;
+        //     Debug.Log("Enemies Done spawning");
+        // }
 
     }
 }
