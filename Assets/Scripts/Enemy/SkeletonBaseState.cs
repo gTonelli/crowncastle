@@ -8,16 +8,18 @@ public abstract class SkeletonBaseState
 {
     protected float distanceToTarget;
     protected NavMeshAgent agent;
-    protected Transform target;
+    protected GameObject target;
 
     protected float attackTriggerDistance;
     protected float chaseTriggerDistance;
 
-    protected SkeletonFSM skeletonFSM;
+    protected SkeletonFSM rootFSM;
     protected Animator animator;
 
     protected float moveSpeed;
     protected float chaseSpeed;
+
+    protected float waitTime;
 
     public virtual void EnterState(SkeletonFSM skeletonFSM)
     {
@@ -25,6 +27,8 @@ public abstract class SkeletonBaseState
         agent = skeletonFSM.agent;
         moveSpeed = skeletonFSM.moveSpeed;
         animator = skeletonFSM.animator;
-
+        waitTime = skeletonFSM.waitTime;
+        attackTriggerDistance = skeletonFSM.attackTriggerDistance;
+        rootFSM = skeletonFSM;
     }
 }

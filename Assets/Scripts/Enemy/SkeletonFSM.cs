@@ -13,10 +13,13 @@ public class SkeletonFSM : MonoBehaviour
     }
 
     public SkeletonMoveState moveState = new SkeletonMoveState();
+    public SkeletonAttackState attackState = new SkeletonAttackState();
     public GameObject skeletonGameObject;
-    public Transform target;
+    public GameObject target;
     public float moveSpeed;
     public Animator animator;
+    public float waitTime;
+    public float attackTriggerDistance;
 
     public NavMeshAgent agent;
     // Start is called before the first frame update
@@ -25,7 +28,7 @@ public class SkeletonFSM : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         skeletonGameObject = this.gameObject;
         animator = GetComponent<Animator>();
-        target = GameObject.Find("Player").GetComponent<Transform>();
+        target = GameObject.Find("Player");
 
         ChangeState(moveState);
     }

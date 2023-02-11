@@ -718,8 +718,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonGameObject: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 0
+  moveSpeed: 2
   animator: {fileID: 0}
+  waitTime: 0.1
+  attackTriggerDistance: 1.5
   agent: {fileID: 0}
 --- !u!1 &1948329710155509288
 GameObject:

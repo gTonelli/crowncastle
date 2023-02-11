@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: bd1c2e9064da28e4fb0fe4a3f6ff4e33
+guid: dda954450d5909141a0cb83014e32e1b
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 19301
   internalIDToNameTable:
   - first:
       1: 100000
@@ -533,7 +533,7 @@ ModelImporter:
     second: BasicMotions@Walk01 - ForwardsLeft
   - first:
       74: 1922147897020755831
-    second: BasicMotions@Walk01 - ForwardsRight
+    second: Walk Forward
   - first:
       74: 5659637821263495846
     second: BasicMotions@Walk01 - Left
@@ -636,7 +636,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - ForwardsRight
+      name: Walk Forward
       takeName: BasicMotions@Walk01 - ForwardsRight
       internalID: 0
       firstFrame: 0
@@ -651,7 +651,7 @@ ModelImporter:
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
@@ -827,7 +827,6 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
@@ -837,9 +836,6 @@ ModelImporter:
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
-    secondaryUVMarginMethod: 0
-    secondaryUVMinLightmapResolution: 40
-    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -1617,12 +1613,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5917c0e93d180a842b61d1ebc62a195c,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 2
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

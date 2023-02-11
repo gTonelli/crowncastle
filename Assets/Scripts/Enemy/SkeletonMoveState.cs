@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SkeletonMoveState : SkeletonBaseState
@@ -15,19 +14,27 @@ public class SkeletonMoveState : SkeletonBaseState
 
     private void MoveToTarget()
     {
-        agent.SetDestination(target.position);
+        agent.SetDestination(target.transform.position);
+        Debug.Log(target.transform.position);
         animator.SetBool("isWalking", true);
+        animator.SetBool("isAttacking", false);
+
+        rootFSM.StartCoroutine(MovingToTarget());
     }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator MovingToTarget()
     {
+        yield return new WaitForSeconds(waitTime);
+        Debug.Log(waitTime);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) < attackTriggerDistance)
+        {
+            Debug.Log("Attacking");
+            rootFSM.ChangeState(rootFSM.attackState);
+        }
+        else
+        {
+            MoveToTarget();
+        }
     }
 }
