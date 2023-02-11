@@ -10,7 +10,7 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1")) // #TODO Replace 
+        if (Input.GetButtonUp("Fire1")) // #TODO Replace 
         {
             OnChangeToNightTime?.Invoke(); // #TODO 
         }
