@@ -12,12 +12,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.OnChangeToNightTime += SpawnSkeletons;
+        GameState.OnChangeToNightTime += SpawnSkeletons;
     }
 
     private void OnDisable()
     {
-        EventManager.OnChangeToNightTime -= SpawnSkeletons;
+        GameState.OnChangeToNightTime -= SpawnSkeletons;
     }
 
     // Start is called before the first frame update
