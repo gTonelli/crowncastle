@@ -15,7 +15,7 @@ public class SkeletonAttackState : SkeletonBaseState
     {
         // TODO
         // ...
-
+        agent.isStopped = true;
         animator.SetBool("isWalking", false);
         animator.SetBool("isAttacking", true);
         rootFSM.gameObject.transform.LookAt(target.transform.position);
@@ -26,10 +26,8 @@ public class SkeletonAttackState : SkeletonBaseState
     {
         yield return new WaitForSeconds(waitTime);
 
-        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > attackTriggerDistance)
+        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > chaseTriggerDistance)
         {
-            Debug.Log("Attacking");
-
             rootFSM.ChangeState(rootFSM.moveState);
         }
         else

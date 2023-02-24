@@ -29,6 +29,7 @@ public abstract class SkeletonBaseState
         animator = skeletonFSM.animator;
         waitTime = skeletonFSM.waitTime;
         attackTriggerDistance = skeletonFSM.attackTriggerDistance;
+        chaseTriggerDistance = skeletonFSM.chaseTriggerDistance;
         rootFSM = skeletonFSM;
     }
 }

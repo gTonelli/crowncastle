@@ -20,6 +20,7 @@ public class SkeletonFSM : MonoBehaviour
     public Animator animator;
     public float waitTime;
     public float attackTriggerDistance;
+    public float chaseTriggerDistance;
 
     public NavMeshAgent agent;
     // Start is called before the first frame update
