@@ -4,13 +4,54 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    private void StartGame()
+    [SerializeField]
+    private int playerHealth;
+    private float timeOfLastHit;
+    private float minTimeBetweenPlayerHit;
+
+    public delegate void ChangeToNightTime();
+    public static event ChangeToNightTime OnChangeToNightTime;
+
+    private void OnEnable()
     {
-        // Change from start menu to Game Scene
+        SkeletonSword.OnPlayerHit += DamagePlayer;
     }
 
-    private void EndGame()
+    private void OnDisable()
     {
-        // Change from game to start menu
+        SkeletonSword.OnPlayerHit -= DamagePlayer;
     }
+
+    void Start()
+    {
+        playerHealth = 5;
+        timeOfLastHit = Time.time;
+        minTimeBetweenPlayerHit = 2f;
+    }
+
+    void DamagePlayer()
+    {
+        if (Time.time - minTimeBetweenPlayerHit > timeOfLastHit)
+        {
+            playerHealth -= 1;
+            timeOfLastHit = Time.time;
+            Debug.Log("Player was hit and has " + playerHealth + " HP");
+
+            if (playerHealth <= 0)
+            {
+                // TODO
+                Debug.Log("Game Over");
+                Time.timeScale = 0.1f;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonUp("Fire1")) // #TODO Replace 
+        {
+            OnChangeToNightTime?.Invoke(); // #TODO 
+        }
+    }
+
 }

@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: c93e4fb465eec5d44a7484201d153dd3, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!4 &4711368 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4547198655909696, guid: a58c8bcd22bee1f4cb166841254a2ea4,
@@ -1142,7 +1142,7 @@ PrefabInstance:
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.600001
+      value: -26.2
       objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
@@ -1203,6 +1203,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5714242122311365276, guid: 2530433608c58da4eb1c8ca7f047eb60,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_RootOrder
@@ -1216,7 +1221,7 @@ PrefabInstance:
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40
+      value: -50.6
       objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
@@ -1536,7 +1541,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!154 &460858987
 TerrainCollider:
@@ -2574,7 +2579,7 @@ PrefabInstance:
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -50
+      value: -60.6
       objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
@@ -4780,7 +4785,7 @@ PrefabInstance:
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.6
+      value: -16.199999
       objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
@@ -5634,7 +5639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6a6df342b52d24092cf6bbb590c535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveHeight: 1.5
+  waveHeight: 0.5
   waveFrequency: 0.5
   waveLength: 0.5
   waveOriginPosition: {x: 0, y: 0, z: 0}
@@ -7519,7 +7524,7 @@ PrefabInstance:
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30
+      value: -40.6
       objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
@@ -7763,7 +7768,7 @@ PrefabInstance:
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.600002
+      value: -36.2
       objectReference: {fileID: 0}
     - target: {fileID: 5714242122311365283, guid: 2530433608c58da4eb1c8ca7f047eb60,
         type: 3}
