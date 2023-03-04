@@ -28,7 +28,6 @@ Transform:
   m_LocalPosition: {x: 1.06524, y: 2.4153564, z: -5.128094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1198481543557317883}
   - {fileID: 1198481544739041890}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21f0e4cdef0ccc4eb71114fc5a8ad7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Prefabs/GameManager.prefab
   playerHealth: 5
 --- !u!1 &1198481543557317881
 GameObject:
@@ -138,6 +138,8 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+=======
+>>>>>>> dev:Assets/Prefabs/GameManager 1.prefab
 --- !u!1 &1198481544739041889
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +172,7 @@ Transform:
   m_LocalScale: {x: 0.26496685, y: 0.57804, z: 0.31229052}
   m_Children: []
   m_Father: {fileID: 1198481543028814239}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &1198481544739041893
 MeshFilter:
