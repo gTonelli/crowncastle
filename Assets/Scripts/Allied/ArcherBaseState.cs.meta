@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Scripts/Allied/ArcherBaseState.cs.meta
 guid: 29ba1432db56adc4c8d62799d260b52a
+=======
+guid: 73b245bab9f1f824db392160e7ac81d8
+>>>>>>> dev:Assets/Scripts/Allied/ArcherAttackState.cs.meta
+=======
+guid: 29ba1432db56adc4c8d62799d260b52a
+>>>>>>> dev
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
