@@ -26,24 +26,18 @@ public class ArcherPatrolState : ArcherBaseState
     {
         yield return new WaitForSeconds(waitTime);
 
-        Collider[] objectsInRange = Physics.OverlapSphere(rootFSM.gameObject.transform.position, attackTriggerDistance);
+        Collider[] objectsInRange = Physics.OverlapSphere(rootFSM.archerGameObject.transform.position, attackTriggerDistance);
 
         foreach (Collider obj in objectsInRange)
         {
-            if (obj.gameObject.tag == "Skeleton")
+            if (obj.CompareTag("Skeleton"))
             {
-                Debug.Log("Tag" + obj.gameObject.tag);
+                rootFSM.target = obj.gameObject;
+                rootFSM.ChangeState(rootFSM.attackState);
+                yield break;
             }
         }
 
-        if (false)
-        {
-            Debug.Log("Attacking");
-            rootFSM.ChangeState(rootFSM.attackState);
-        }
-        else
-        {
-            Patrol();
-        }
+        Patrol();
     }
 }

@@ -13,29 +13,17 @@ public class ArcherAttackState : ArcherBaseState
 
     private void AttackTarget()
     {
-        // TODO
-        // ...
-
         animator.SetBool("isWalking", false);
         animator.SetBool("isAttacking", true);
-
-        if (targets.GetLength(1) > 0)
-        {
-            // TODO
-            rootFSM.gameObject.transform.LookAt(targets[0].transform.position);
-        }
         rootFSM.StartCoroutine(AttackingTarget());
     }
 
     IEnumerator AttackingTarget()
     {
         yield return new WaitForSeconds(waitTime);
-
-        if (false)
+        if (Vector3.Distance(target.transform.position, rootFSM.archerGameObject.transform.position) > attackTriggerDistance)
         {
-            // TODO
-            Debug.Log("Attacking");
-
+            target = null;
             rootFSM.ChangeState(rootFSM.patrolState);
         }
         else
