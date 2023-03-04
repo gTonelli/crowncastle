@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21f0e4cdef0ccc4eb71114fc5a8ad7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Prefabs/GameManager.prefab
   playerHealth: 5
 --- !u!1 &1198481543557317881
 GameObject:
@@ -138,8 +137,6 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-=======
->>>>>>> dev:Assets/Prefabs/GameManager 1.prefab
 --- !u!1 &1198481544739041889
 GameObject:
   m_ObjectHideFlags: 0
