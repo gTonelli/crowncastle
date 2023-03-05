@@ -21,7 +21,7 @@ public class ArcherAttackState : ArcherBaseState
     IEnumerator AttackingTarget()
     {
         yield return new WaitForSeconds(waitTime);
-        if (Vector3.Distance(target.transform.position, rootFSM.archerGameObject.transform.position) > attackTriggerDistance)
+        if (target == null || Vector3.Distance(target.transform.position, rootFSM.archerGameObject.transform.position) > attackTriggerDistance)
         {
             target = null;
             rootFSM.ChangeState(rootFSM.patrolState);
