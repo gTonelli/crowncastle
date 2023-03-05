@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading.Tasks;
 
 public class ArcherFSM : MonoBehaviour
 {
@@ -86,13 +87,14 @@ public class ArcherFSM : MonoBehaviour
         }
     }
 
+    // Accessed by animation events
     public void ShootArrow()
     {
         Quaternion arrowRotation = arrowRenderer.gameObject.transform.rotation;
         print("Arrow Rotation " + arrowRotation);
         GameObject arrow = Instantiate(ArrowPrefab, arrowRenderer.gameObject.transform.position, arrowRotation);
         arrow.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position) * arrowSpeed, ForceMode.Impulse);
-        Time.timeScale = 0.1f;
+        Destroy(arrow, 2.5f);
     }
 
     public void ToggleArrow()
