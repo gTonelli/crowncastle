@@ -7,7 +7,7 @@ public class ArcherPatrolState : ArcherBaseState
     public override void EnterState(ArcherFSM archerFSM)
     {
         base.EnterState(archerFSM);
-        Debug.Log("Entered PatrolState");
+        Debug.Log("Archer Entered PatrolState");
 
         agent.speed = moveSpeed;
         Patrol();
@@ -26,21 +26,18 @@ public class ArcherPatrolState : ArcherBaseState
     {
         yield return new WaitForSeconds(waitTime);
 
-        Collider[] objectsInRange = Physics.OverlapSphere(rootFSM.gameObject.transform.position, attackTriggerDistance);
+        Collider[] objectsInRange = Physics.OverlapSphere(rootFSM.archerGameObject.transform.position, attackTriggerDistance);
 
         foreach (Collider obj in objectsInRange)
         {
-            Debug.Log("Tag" + obj.gameObject.tag);
+            if (obj.CompareTag("Skeleton"))
+            {
+                rootFSM.target = obj.gameObject;
+                rootFSM.ChangeState(rootFSM.attackState);
+                yield break;
+            }
         }
 
-        if (false)
-        {
-            Debug.Log("Attacking");
-            rootFSM.ChangeState(rootFSM.attackState);
-        }
-        else
-        {
-            Patrol();
-        }
+        Patrol();
     }
 }
