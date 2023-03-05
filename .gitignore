@@ -73,3 +73,7 @@ crashlytics-build.properties
 
 *.plastic
 *.vscode
+
+# WinMerge backup files
+*.bak
+*.bak.meta

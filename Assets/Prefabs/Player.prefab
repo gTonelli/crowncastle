@@ -201,11 +201,7 @@ GameObject:
   - component: {fileID: 280009249}
   - component: {fileID: 280009248}
   - component: {fileID: 6070702665305306720}
-<<<<<<< HEAD
   m_Layer: 11
-=======
-  m_Layer: 0
->>>>>>> dev
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -276,11 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 280009249}
-<<<<<<< HEAD
   speed: 3
-=======
-  speed: 1.5
->>>>>>> dev
   turnSmoothSpeed: 0.1
 --- !u!136 &6070702665305306720
 CapsuleCollider:
