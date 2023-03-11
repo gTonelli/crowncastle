@@ -2655,7 +2655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1543102066348118708}
   - component: {fileID: 4466229223540746597}
-  - component: {fileID: 685561223}
+  - component: {fileID: 5695515049873378822}
   m_Layer: 9
   m_Name: Arrow
   m_TagString: Arrow
@@ -2728,7 +2728,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0000004991889, y: 0, z: 0.16469252}
     m_Extent: {x: 0.1197915, y: 0.119792, z: 2.0915966}
   m_DirtyAABB: 0
---- !u!114 &685561223
+--- !u!114 &5695515049873378822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2737,6 +2737,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6912148851214679073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b2a23338f7946246b1adeefb43bb3b4, type: 3}
+  m_Script: {fileID: 11500000, guid: ea6039efa8df8b34e9e42d26c714d02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
