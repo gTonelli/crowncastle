@@ -31,9 +31,11 @@ public class SkeletonMoveState : SkeletonBaseState
     IEnumerator MovingToTarget()
     {
         yield return new WaitForSeconds(waitTime);
+        Debug.Log(waitTime);
 
         if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) < attackTriggerDistance)
         {
+            Debug.Log("Attacking");
             rootFSM.ChangeState(rootFSM.attackState);
         }
         else

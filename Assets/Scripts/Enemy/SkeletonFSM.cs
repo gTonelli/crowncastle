@@ -25,7 +25,6 @@ public class SkeletonFSM : MonoBehaviour
     public float moveSpeed;
     public float waitTime;
     public float attackTriggerDistance;
-    public float chaseTriggerDistance;
 
     public NavMeshAgent agent;
 

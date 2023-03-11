@@ -31,8 +31,10 @@ public class SkeletonAttackState : SkeletonBaseState
     {
         yield return new WaitForSeconds(waitTime);
 
-        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > chaseTriggerDistance)
+        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > attackTriggerDistance)
         {
+            Debug.Log("Attacking");
+
             rootFSM.ChangeState(rootFSM.moveState);
         }
         else
