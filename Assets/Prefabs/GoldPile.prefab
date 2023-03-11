@@ -62,6 +62,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miningCommand: 0
+  miningProgress: 0
+  miningLimit: 5
+  destroyThis: 0
+  DestroyVFX: {fileID: 8183313765716770882, guid: 1814fc90478dfb148bc1e6090ac7b586,
+    type: 3}
+  DropCollectable: {fileID: 4308438326335536467, guid: 3017120d49c790642bb4714196f46f61,
+    type: 3}
 --- !u!114 &705274562343401567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,9 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420fb3c494644d44d852cb69e12dac67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinerPrefab: {fileID: 157842, guid: ef3c7a6cdd822654c9ff74c4222fa2b9, type: 3}
+  MinerPrefab: {fileID: 2183450286587869714, guid: 165e879dae917d74fbd347c53b1d8f06,
+    type: 3}
   player: {fileID: 0}
   stonePile: {fileID: 321346169695543946}
+  miner: {fileID: 0}
 --- !u!1 &321346170482703834
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +207,7 @@ GameObject:
   - component: {fileID: 3462356633948559728}
   - component: {fileID: 5530613875882594797}
   - component: {fileID: 5987199869075664516}
+  - component: {fileID: 5804104651282092729}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -212,13 +222,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233466412443456772}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2722550852186522383}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.71}
@@ -261,6 +271,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5804104651282092729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233466412443456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.28627452, g: 0.43921572, b: 0.5019608, a: 1}
+  m_EffectDistance: {x: 0.1, y: 0.1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &3085379506370164976
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +300,7 @@ GameObject:
   - component: {fileID: 7919460969533283922}
   - component: {fileID: 2575588806505735874}
   - component: {fileID: 6290661570755537317}
+  - component: {fileID: 6923620034406940502}
   m_Layer: 0
   m_Name: MineUI
   m_TagString: Untagged
@@ -289,7 +315,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3085379506370164976}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.99009895, y: 0.9900991, z: 0.99009895}
   m_Children:
@@ -298,7 +324,7 @@ RectTransform:
   - {fileID: 4920496717741466545}
   m_Father: {fileID: 321346170482703835}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 6.31}
@@ -401,6 +427,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6923620034406940502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3085379506370164976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5948d0c70668b9e4a998b6e648668133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8443533945002332709
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,13 +464,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8443533945002332709}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2722550852186522383}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -486,7 +524,7 @@ GameObject:
   - component: {fileID: 4920496717741466545}
   - component: {fileID: 7860741945950265963}
   - component: {fileID: 6001267106235514960}
-  - component: {fileID: 9065218993502913928}
+  - component: {fileID: 692756839419047786}
   m_Layer: 0
   m_Name: Progress
   m_TagString: Untagged
@@ -501,13 +539,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8975195072276808755}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2722550852186522383}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.71}
@@ -550,7 +588,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9065218993502913928
+--- !u!114 &692756839419047786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -565,7 +603,6 @@ MonoBehaviour:
   stonePile: {fileID: 321346169695543946}
   progressImage: {fileID: 6001267106235514960}
   ButtonUnpressedImage: {fileID: 2228129913117778022}
-  ButtonPressedImage: {fileID: 0}
 --- !u!1001 &4899030057796241849
 PrefabInstance:
   m_ObjectHideFlags: 0

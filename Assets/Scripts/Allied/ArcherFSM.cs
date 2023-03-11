@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Threading.Tasks;
 
 public class ArcherFSM : MonoBehaviour
 {
@@ -14,57 +13,22 @@ public class ArcherFSM : MonoBehaviour
 
     public ArcherPatrolState patrolState = new ArcherPatrolState();
     public ArcherAttackState attackState = new ArcherAttackState();
-
-    [Header("Assigned At Run-time")]
     public GameObject archerGameObject;
-    public GameObject target;
-    public NavMeshAgent agent;
-    public Animator animator;
-
-    [Header("Assigned In Editor")]
-    public GameObject ArrowPrefab;
+    public GameObject[] targets;
     public float moveSpeed;
+    public Animator animator;
     public float waitTime;
     public float attackTriggerDistance;
-    public float arrowSpeed;
 
-    // This is the time in the animation when the arrow should be released. Also accessed by ToggleArrowVisibility.cs
-    [HideInInspector]
     public static float arrowReleaseTime = 3.05f;
 
-    private Renderer arrowRenderer;
-
+    public NavMeshAgent agent;
+    // Start is called before the first frame update
     void Start()
     {
-        // init
         agent = GetComponent<NavMeshAgent>();
         archerGameObject = this.gameObject;
         animator = GetComponent<Animator>();
-
-        foreach (SkinnedMeshRenderer _ in GetComponentsInChildren<SkinnedMeshRenderer>())
-        {
-            if (_.gameObject.CompareTag("Arrow"))
-            {
-                arrowRenderer = _.gameObject.GetComponent<Renderer>();
-                break;
-            }
-        }
-
-        // Add shoot arrow event to attack animation
-        AnimationClip animationClip;
-        AnimationEvent shootEvent = new AnimationEvent();
-        shootEvent.time = arrowReleaseTime;
-        shootEvent.functionName = "ShootArrow";
-
-        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
-        {
-            if (clip.name == "ShootingArrow")
-            {
-                animationClip = clip;
-                animationClip.AddEvent(shootEvent);
-                break;
-            }
-        }
 
         ChangeState(patrolState);
     }

@@ -20,11 +20,15 @@ public class SelectedPileVisual : MonoBehaviour
     }
 
     private void Show() {
-        visualGameObject.SetActive(true);
+        if (visualGameObject != null) {
+            visualGameObject.SetActive(true);
+        }
     }
 
     private void Hide() {
-        visualGameObject.SetActive(false);
+        if (visualGameObject != null) {
+            visualGameObject.SetActive(false);
+        }
     }
 
 }
