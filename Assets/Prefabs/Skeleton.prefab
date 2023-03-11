@@ -922,8 +922,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeletonGameObject: {fileID: 0}
   target: {fileID: 0}
-  moveSpeed: 2
   animator: {fileID: 0}
+  arrowHitEffect: {fileID: 261945787089902422, guid: 8b143e261305cd14aa3827bc18c9cd69,
+    type: 3}
+  moveSpeed: 2
   waitTime: 1
   attackTriggerDistance: 2.5
   chaseTriggerDistance: 3
