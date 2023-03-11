@@ -17,9 +17,6 @@ public class TimeController : MonoBehaviour
     private float startHour;
 
     [SerializeField]
-    private TextMeshProUGUI timeText;
-
-    [SerializeField]
     private Light sunLight;
 
     [SerializeField]
@@ -46,26 +43,42 @@ public class TimeController : MonoBehaviour
     [SerializeField]
     private float maxMoonLightIntensity;
 
-    private DateTime currentTime;
+    [SerializeField]
+    public GameObject playerPrefab;
+
+    public DateTime currentTime;
 
     private TimeSpan sunriseTime;
 
     private TimeSpan sunsetTime;
 
+
+
     private bool IsNight;
+
+    private bool IsMined;
+
+    ResourceController resourceController = new ResourceController();
 
     public delegate void ChangeToNightTime();
     public static event ChangeToNightTime OnChangeToNightTime;
 
-    //public static event GameState.ChangeToNightTime OnChangeToNightTime;
+/*    public delegate void RespawnResources();
+    public static event RespawnResources Resources;*/
+
+    RespawnResources respawnResources = new RespawnResources();
+
+
+
 
     void Start()
     {
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
-
+        respawnResources.cT = DateTime.Now.Date + TimeSpan.FromHours(startHour);
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
         IsNight = true;
+        IsMined = false;
     }
 
     // Update is called once per frame
@@ -81,17 +94,11 @@ public class TimeController : MonoBehaviour
     private void UpdateTimeOfDay()
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
-
-        if (timeText != null)
-        {
-            timeText.text = currentTime.ToString("HH:mm");
-
-        }
     }
 
-    private TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTIme)
+    private TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTime)
     {
-        TimeSpan difference = toTIme - fromTime;
+        TimeSpan difference = toTime - fromTime;
 
         if (difference.TotalSeconds < 0)
         {
@@ -158,9 +165,8 @@ public class TimeController : MonoBehaviour
             OnChangeToNightTime?.Invoke();
             RenderSettings.ambientIntensity = 0f;
 
-
-
         }
         
     }
+
 }
