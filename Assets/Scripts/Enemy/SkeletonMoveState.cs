@@ -6,6 +6,8 @@ public class SkeletonMoveState : SkeletonBaseState
     public override void EnterState(SkeletonFSM skeletonFSM)
     {
         base.EnterState(skeletonFSM);
+        Debug.Log("Entered MoveState");
+
         agent.speed = moveSpeed;
         MoveToTarget();
     }
