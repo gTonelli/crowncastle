@@ -3,14 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static GameState;
 
 public class TimeController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-
-    [SerializeField]
+     [SerializeField]
     private float timeMultiplier;
 
     [SerializeField]
@@ -73,16 +71,13 @@ public class TimeController : MonoBehaviour
     {
         UpdateTimeOfDay();
         RotateSun();
-        UpdateLightSettings();
-        IsNightTime();
-
     }
 
     private void UpdateTimeOfDay()
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
 
-        if (timeText != null)
+        if(timeText != null)
         {
             timeText.text = currentTime.ToString("HH:mm");
 
@@ -112,11 +107,9 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
-            RenderSettings.fog = false;
-        }
-        else
+        } else
         {
-            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime, sunriseTime);
+            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime,sunriseTime);
             TimeSpan timeSinceSunset = CalculateTimeDifference(sunsetTime, currentTime.TimeOfDay);
 
             double precentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
@@ -143,7 +136,6 @@ public class TimeController : MonoBehaviour
         sunLight.intensity = Mathf.Lerp(0, maxSunLightIntensity, lightChangeCurve.Evaluate(dotProduct));
         moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
         RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAbmientLight, lightChangeCurve.Evaluate(dotProduct));
-
     }
 
     private void IsNightTime()

@@ -12,12 +12,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        TimeController.OnChangeToNightTime += SpawnSkeletons;
+        EventManager.OnChangeToNightTime += SpawnSkeletons;
     }
 
     private void OnDisable()
     {
-        TimeController.OnChangeToNightTime -= SpawnSkeletons;
+        EventManager.OnChangeToNightTime -= SpawnSkeletons;
     }
 
     // Start is called before the first frame update
@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     private async void SpawnSkeletons()
     {
-        //Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
+        // Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
 
         if (!enemiesAreSpawning)
         {
