@@ -6,20 +6,26 @@ public class SkeletonMoveState : SkeletonBaseState
     public override void EnterState(SkeletonFSM skeletonFSM)
     {
         base.EnterState(skeletonFSM);
-        Debug.Log("Entered MoveState");
-
         agent.speed = moveSpeed;
         MoveToTarget();
     }
 
     private void MoveToTarget()
     {
-        agent.SetDestination(target.transform.position);
-        Debug.Log(target.transform.position);
-        animator.SetBool("isWalking", true);
-        animator.SetBool("isAttacking", false);
+        try
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.transform.position);
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isAttacking", false);
+            rootFSM.StartCoroutine(MovingToTarget());
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("Skeleton was removed.");
+            throw;
+        }
 
-        rootFSM.StartCoroutine(MovingToTarget());
     }
 
     IEnumerator MovingToTarget()

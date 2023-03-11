@@ -8,7 +8,7 @@ public class TimeController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField]
+     [SerializeField]
     private float timeMultiplier;
 
     [SerializeField]
@@ -26,11 +26,36 @@ public class TimeController : MonoBehaviour
     [SerializeField]
     private float sunsetHour;
 
+    [SerializeField]
+    private Color dayAbmientLight;
+
+    [SerializeField]
+    private Color nightAmbientLight;
+
+    [SerializeField]
+    private AnimationCurve lightChangeCurve;
+
+    [SerializeField]
+    private float maxSunLightIntensity;
+
+    [SerializeField]
+    private Light moonLight;
+
+    [SerializeField]
+    private float maxMoonLightIntensity;
+
     private DateTime currentTime;
 
     private TimeSpan sunriseTime;
 
     private TimeSpan sunsetTime;
+
+    private bool IsNight;
+
+    public delegate void ChangeToNightTime();
+    public static event ChangeToNightTime OnChangeToNightTime;
+
+    //public static event GameState.ChangeToNightTime OnChangeToNightTime;
 
     void Start()
     {
@@ -38,6 +63,7 @@ public class TimeController : MonoBehaviour
 
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
+        IsNight = true;
     }
 
     // Update is called once per frame
@@ -90,9 +116,43 @@ public class TimeController : MonoBehaviour
 
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)precentage);
+            
+            RenderSettings.fogDensity = Mathf.Lerp(0, 0.05f, (float)precentage);
+
+
+            RenderSettings.fog = true;
+
+            OnChangeToNightTime?.Invoke();
 
         }
 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
+    }
+
+
+    private void UpdateLightSettings()
+    {
+        float dotProduct = Vector3.Dot(sunLight.transform.forward, Vector3.down);
+        sunLight.intensity = Mathf.Lerp(0, maxSunLightIntensity, lightChangeCurve.Evaluate(dotProduct));
+        moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
+        RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAbmientLight, lightChangeCurve.Evaluate(dotProduct));
+    }
+
+    private void IsNightTime()
+    {
+
+        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && IsNight)
+        {
+            IsNight = false;
+            RenderSettings.fogDensity = 0.001f;
+
+            RenderSettings.fog = true;
+            OnChangeToNightTime?.Invoke();
+            RenderSettings.ambientIntensity = 0f;
+
+
+
+        }
+        
     }
 }

@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 public class EnemySpawner : MonoBehaviour
 {
+<<<<<<< HEAD
     public int numEnemiesToSpawn;
+=======
+    public int numEnemiesToSpawn = 10;
+>>>>>>> dev
     public GameObject EnemyPrefab;
     private bool enemiesAreSpawning;
     private Vector3 lastEnemyPos; // #TODO prevent enemies from spawning on each other.
@@ -30,6 +34,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
 
+<<<<<<< HEAD
         // if (!enemiesAreSpawning)
         // {
         //     enemiesAreSpawning = true;
@@ -42,6 +47,18 @@ public class EnemySpawner : MonoBehaviour
         //     enemiesAreSpawning = false;
         //     Debug.Log("Enemies Done spawning");
         // }
+=======
+        if (!enemiesAreSpawning)
+        {
+            enemiesAreSpawning = true;
+            for (int _ = 0; _ < numEnemiesToSpawn; ++_)
+            {
+                await Task.Delay(2500 + Random.Range(0, 1250));
+                // #TODO
+                Instantiate(EnemyPrefab, transform.position + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-1.5f, 1.5f)), new Quaternion(0f, -1f, 0f, 1f));
+            }
+        }
+>>>>>>> dev
 
     }
 }

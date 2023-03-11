@@ -7,19 +7,24 @@ public class SkeletonAttackState : SkeletonBaseState
     public override void EnterState(SkeletonFSM skeletonFSM)
     {
         base.EnterState(skeletonFSM);
-        Debug.Log("Entered AttackState");
         AttackTarget();
     }
 
     private void AttackTarget()
     {
-        // TODO
-        // ...
-
-        animator.SetBool("isWalking", false);
-        animator.SetBool("isAttacking", true);
-        rootFSM.gameObject.transform.LookAt(target.transform.position);
-        rootFSM.StartCoroutine(AttackingTarget());
+        try
+        {
+            agent.isStopped = true;
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isAttacking", true);
+            rootFSM.gameObject.transform.LookAt(target.transform.position);
+            rootFSM.StartCoroutine(AttackingTarget());
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("Skeleotn was deleted");
+            throw;
+        }
     }
 
     IEnumerator AttackingTarget()
