@@ -52,7 +52,7 @@ public class TimeController : MonoBehaviour
 
     private TimeSpan sunsetTime;
 
-    private bool like;
+    private bool IsNight;
 
     public delegate void ChangeToNightTime();
     public static event ChangeToNightTime OnChangeToNightTime;
@@ -65,7 +65,7 @@ public class TimeController : MonoBehaviour
 
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
-        like = true;
+        IsNight = true;
     }
 
     // Update is called once per frame
@@ -124,7 +124,9 @@ public class TimeController : MonoBehaviour
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)precentage);
             
-            //RenderSettings.fogDensity = 0.005f;
+            RenderSettings.fogDensity = Mathf.Lerp(0, 0.05f, (float)precentage);
+
+
             RenderSettings.fog = true;
 
             OnChangeToNightTime?.Invoke();
@@ -147,11 +149,11 @@ public class TimeController : MonoBehaviour
     private void IsNightTime()
     {
 
-        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && like)
+        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && IsNight)
         {
-            like = false;
-            //RenderSettings.fogDensity = 0.05f;
-             = Mathf.Lerp(0, 0.05f, RenderSettings.fogDensity);
+            IsNight = false;
+            RenderSettings.fogDensity = 0.001f;
+
             RenderSettings.fog = true;
             OnChangeToNightTime?.Invoke();
             RenderSettings.ambientIntensity = 0f;
