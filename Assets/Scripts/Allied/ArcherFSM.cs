@@ -91,7 +91,6 @@ public class ArcherFSM : MonoBehaviour
     public void ShootArrow()
     {
         Quaternion arrowRotation = arrowRenderer.gameObject.transform.rotation;
-        print("Arrow Rotation " + arrowRotation);
         GameObject arrow = Instantiate(ArrowPrefab, arrowRenderer.gameObject.transform.position, arrowRotation);
         arrow.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position) * arrowSpeed, ForceMode.Impulse);
         Destroy(arrow, 2.5f);
