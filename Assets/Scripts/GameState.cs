@@ -9,8 +9,8 @@ public class GameState : MonoBehaviour
     private float timeOfLastHit;
     private float minTimeBetweenPlayerHit;
 
-    public delegate void ChangeToNightTime();
-    public static event ChangeToNightTime OnChangeToNightTime;
+    //public delegate void ChangeToNightTime();
+    //public static event ChangeToNightTime OnChangeToNightTime;
 
     private void OnEnable()
     {
@@ -48,10 +48,6 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonUp("Fire1")) // #TODO Replace 
-        {
-            OnChangeToNightTime?.Invoke(); // #TODO 
-        }
     }
 
 }

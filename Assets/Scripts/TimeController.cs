@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static GameState;
 
 public class TimeController : MonoBehaviour
 {
     // Start is called before the first frame update
+
 
     [SerializeField]
     private float timeMultiplier;
@@ -50,12 +52,20 @@ public class TimeController : MonoBehaviour
 
     private TimeSpan sunsetTime;
 
+    private bool like;
+
+    public delegate void ChangeToNightTime();
+    public static event ChangeToNightTime OnChangeToNightTime;
+
+    //public static event GameState.ChangeToNightTime OnChangeToNightTime;
+
     void Start()
     {
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
 
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
+        like = true;
     }
 
     // Update is called once per frame
@@ -64,13 +74,15 @@ public class TimeController : MonoBehaviour
         UpdateTimeOfDay();
         RotateSun();
         UpdateLightSettings();
+        IsNightTime();
+
     }
 
     private void UpdateTimeOfDay()
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
 
-        if(timeText != null)
+        if (timeText != null)
         {
             timeText.text = currentTime.ToString("HH:mm");
 
@@ -100,15 +112,22 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
-        } else
+            RenderSettings.fog = false;
+        }
+        else
         {
-            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime,sunriseTime);
+            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime, sunriseTime);
             TimeSpan timeSinceSunset = CalculateTimeDifference(sunsetTime, currentTime.TimeOfDay);
 
             double precentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
 
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)precentage);
+            
+            //RenderSettings.fogDensity = 0.005f;
+            RenderSettings.fog = true;
+
+            OnChangeToNightTime?.Invoke();
 
         }
 
@@ -127,14 +146,19 @@ public class TimeController : MonoBehaviour
 
     private void IsNightTime()
     {
-        if (currentTime.TimeOfDay < sunriseTime && currentTime.TimeOfDay > sunsetTime)
+
+        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && like)
         {
+            like = false;
+            //RenderSettings.fogDensity = 0.05f;
+             = Mathf.Lerp(0, 0.05f, RenderSettings.fogDensity);
             RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color(190, 190, 190, 255);
-            RenderSettings.fogDensity = 0.001f;
-        } else
-        {
-            RenderSettings.fog = false;
+            OnChangeToNightTime?.Invoke();
+            RenderSettings.ambientIntensity = 0f;
+
+
+
         }
+        
     }
 }
