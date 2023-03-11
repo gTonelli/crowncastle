@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static GameState;
 
 public class TimeController : MonoBehaviour
 {
     // Start is called before the first frame update
-
 
     [SerializeField]
     private float timeMultiplier;
@@ -28,36 +26,11 @@ public class TimeController : MonoBehaviour
     [SerializeField]
     private float sunsetHour;
 
-    [SerializeField]
-    private Color dayAbmientLight;
-
-    [SerializeField]
-    private Color nightAmbientLight;
-
-    [SerializeField]
-    private AnimationCurve lightChangeCurve;
-
-    [SerializeField]
-    private float maxSunLightIntensity;
-
-    [SerializeField]
-    private Light moonLight;
-
-    [SerializeField]
-    private float maxMoonLightIntensity;
-
     private DateTime currentTime;
 
     private TimeSpan sunriseTime;
 
     private TimeSpan sunsetTime;
-
-    private bool like;
-
-    public delegate void ChangeToNightTime();
-    public static event ChangeToNightTime OnChangeToNightTime;
-
-    //public static event GameState.ChangeToNightTime OnChangeToNightTime;
 
     void Start()
     {
@@ -65,7 +38,6 @@ public class TimeController : MonoBehaviour
 
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
-        like = true;
     }
 
     // Update is called once per frame
@@ -73,16 +45,13 @@ public class TimeController : MonoBehaviour
     {
         UpdateTimeOfDay();
         RotateSun();
-        UpdateLightSettings();
-        IsNightTime();
-
     }
 
     private void UpdateTimeOfDay()
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
 
-        if (timeText != null)
+        if(timeText != null)
         {
             timeText.text = currentTime.ToString("HH:mm");
 
@@ -112,53 +81,18 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
-            RenderSettings.fog = false;
-        }
-        else
+        } else
         {
-            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime, sunriseTime);
+            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime,sunriseTime);
             TimeSpan timeSinceSunset = CalculateTimeDifference(sunsetTime, currentTime.TimeOfDay);
 
             double precentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
 
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)precentage);
-            
-            //RenderSettings.fogDensity = 0.005f;
-            RenderSettings.fog = true;
-
-            OnChangeToNightTime?.Invoke();
 
         }
 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
-    }
-
-
-    private void UpdateLightSettings()
-    {
-        float dotProduct = Vector3.Dot(sunLight.transform.forward, Vector3.down);
-        sunLight.intensity = Mathf.Lerp(0, maxSunLightIntensity, lightChangeCurve.Evaluate(dotProduct));
-        moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
-        RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAbmientLight, lightChangeCurve.Evaluate(dotProduct));
-
-    }
-
-    private void IsNightTime()
-    {
-
-        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && like)
-        {
-            like = false;
-            //RenderSettings.fogDensity = 0.05f;
-             = Mathf.Lerp(0, 0.05f, RenderSettings.fogDensity);
-            RenderSettings.fog = true;
-            OnChangeToNightTime?.Invoke();
-            RenderSettings.ambientIntensity = 0f;
-
-
-
-        }
-        
     }
 }
