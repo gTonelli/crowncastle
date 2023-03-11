@@ -9,7 +9,7 @@ public class SkeletonSword : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.tag == "Player")
         {
             OnPlayerHit.Invoke();
         }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class ArcherBaseState
+public class ArcherBaseState : MonoBehaviour
 {
     protected float distanceToTarget;
     protected NavMeshAgent agent;
-    protected GameObject target;
+    protected GameObject[] targets;
 
     protected float attackTriggerDistance;
     protected float chaseTriggerDistance;
@@ -21,7 +21,7 @@ public abstract class ArcherBaseState
 
     public virtual void EnterState(ArcherFSM archerFSM)
     {
-        target = archerFSM.target;
+        targets = archerFSM.targets;
         agent = archerFSM.agent;
         moveSpeed = archerFSM.moveSpeed;
         animator = archerFSM.animator;
