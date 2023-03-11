@@ -7,7 +7,6 @@ public class SkeletonAttackState : SkeletonBaseState
     public override void EnterState(SkeletonFSM skeletonFSM)
     {
         base.EnterState(skeletonFSM);
-        Debug.Log("Entered AttackState");
         AttackTarget();
     }
 

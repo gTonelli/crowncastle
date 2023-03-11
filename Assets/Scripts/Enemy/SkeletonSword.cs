@@ -11,7 +11,7 @@ public class SkeletonSword : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            OnPlayerHit.Invoke();
+            OnPlayerHit?.Invoke();
         }
     }
 }
