@@ -2265,6 +2265,7 @@ MonoBehaviour:
   waitTime: 1
   attackTriggerDistance: 10
   arrowSpeed: 1
+  arrowRenderer: {fileID: 0}
 --- !u!195 &2641325861832760416
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2737,6 +2738,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6912148851214679073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6039efa8df8b34e9e42d26c714d02f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b2a23338f7946246b1adeefb43bb3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
