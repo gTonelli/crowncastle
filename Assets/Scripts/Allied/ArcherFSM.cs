@@ -22,7 +22,6 @@ public class ArcherFSM : MonoBehaviour
     public GameObject target;
     public NavMeshAgent agent;
     public Animator animator;
-    public bool canPatrol = true;
 
     [Header("Assigned In Editor")]
     public GameObject ArrowPrefab;
@@ -30,6 +29,7 @@ public class ArcherFSM : MonoBehaviour
     public float waitTime;
     public float attackTriggerDistance;
     public float arrowSpeed;
+    public bool canPatrol = true;
 
     // This is the time in the animation when the arrow should be released. Also accessed by ToggleArrowVisibility.cs
     [HideInInspector]
@@ -66,7 +66,7 @@ public class ArcherFSM : MonoBehaviour
         {
             if (clip.name == "ShootingArrow")
             {
-                if (clip.events.Length < 1)
+                if (clip.events.Length < 3)
                 {
                     animationClip = clip;
                     animationClip.AddEvent(shootEvent);
