@@ -8,7 +8,6 @@ public class MinerSpawner : MonoBehaviour
     //public int numMinersToSpawn;
     public GameObject MinerPrefab;
     [SerializeField] private Player player;
-    private bool minersAreSpawning;
     [SerializeField] private StonePile stonePile;
     public GameObject miner;
     //private Vector3 lastMinerPos; // #TODO prevent miners from spawning on each other.
@@ -22,16 +21,6 @@ public class MinerSpawner : MonoBehaviour
         if (stonePile.destroyThis) {
             DestroyMiners();
         }
-            
-
-        /*if (stonePile.miningProgress > stonePile.miningLimit - 1 || stonePile.miningProgress == stonePile.miningLimit - 1) {
-            DestroyMiners();
-        }*/
-    }
-
-    // Start is called before the first frame update
-    void Start() {
-        minersAreSpawning = false;
     }
 
     private async void SpawnMiners() {
