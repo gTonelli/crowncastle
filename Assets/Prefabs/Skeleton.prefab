@@ -926,10 +926,10 @@ MonoBehaviour:
   agent: {fileID: 0}
   arrowHitEffect: {fileID: 261945787089902422, guid: 8b143e261305cd14aa3827bc18c9cd69,
     type: 3}
-  moveSpeed: 3.5
+  moveSpeed: 3
   waitTime: 0.5
   attackTriggerDistance: 2.5
-  health: 2
+  health: 1
 --- !u!136 &533370122
 CapsuleCollider:
   m_ObjectHideFlags: 0
