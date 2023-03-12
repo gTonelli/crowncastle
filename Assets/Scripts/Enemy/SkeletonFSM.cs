@@ -19,16 +19,15 @@ public class SkeletonFSM : MonoBehaviour
     public GameObject skeletonGameObject;
     public GameObject target;
     public Animator animator;
+    public NavMeshAgent agent;
 
     [Header("Assigned in Editor")]
     public ParticleSystem arrowHitEffect;
     public float moveSpeed;
     public float waitTime;
     public float attackTriggerDistance;
+    public int health = 2;
 
-    public NavMeshAgent agent;
-
-    private int health = 1;
     // Start is called before the first frame update
     void Start()
     {

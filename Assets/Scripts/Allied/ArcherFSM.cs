@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public class ArcherFSM : MonoBehaviour
 {
+    private int health;
     private ArcherBaseState currentState;
     public ArcherBaseState CurrentState
     {
@@ -14,12 +15,14 @@ public class ArcherFSM : MonoBehaviour
 
     public ArcherPatrolState patrolState = new ArcherPatrolState();
     public ArcherAttackState attackState = new ArcherAttackState();
+    public ArcherIdleState idleState = new ArcherIdleState();
 
     [Header("Assigned At Run-time")]
     public GameObject archerGameObject;
     public GameObject target;
     public NavMeshAgent agent;
     public Animator animator;
+    public bool canPatrol = true;
 
     [Header("Assigned In Editor")]
     public GameObject ArrowPrefab;
@@ -42,6 +45,7 @@ public class ArcherFSM : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         archerGameObject = this.gameObject;
         animator = GetComponent<Animator>();
+        health = 2;
 
         foreach (SkinnedMeshRenderer _ in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
@@ -62,13 +66,17 @@ public class ArcherFSM : MonoBehaviour
         {
             if (clip.name == "ShootingArrow")
             {
-                animationClip = clip;
-                animationClip.AddEvent(shootEvent);
-                break;
+                if (clip.events.Length < 1)
+                {
+                    animationClip = clip;
+                    animationClip.AddEvent(shootEvent);
+                    break;
+                }
             }
         }
 
-        ChangeState(patrolState);
+        if (canPatrol) ChangeState(patrolState);
+        else ChangeState(idleState);
     }
 
     public void ChangeState(ArcherBaseState state)
@@ -87,6 +95,7 @@ public class ArcherFSM : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0f, 90f, 0f);
             archerGameObject.transform.rotation = Quaternion.Slerp(archerGameObject.transform.rotation, targetRotation, 4f * Time.deltaTime);
         }
+        else if (currentState == attackState) ChangeState(idleState);
     }
 
     // Accessed by animation events
@@ -104,5 +113,21 @@ public class ArcherFSM : MonoBehaviour
     public void ToggleArrow()
     {
         arrowRenderer.enabled = !arrowRenderer.enabled;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Collision archer:" + other.tag);
+        if (other.CompareTag("Skeleton"))
+        {
+            health -= 1;
+            if (health <= 0)
+            {
+                // Disable animator and AI Agent to ragdoll the skeleton.
+                animator.enabled = false;
+                agent.enabled = false;
+                Destroy(gameObject, 1.5f);
+            }
+        }
     }
 }

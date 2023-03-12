@@ -8,7 +8,7 @@ public class TimeController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-     [SerializeField]
+    [SerializeField]
     private float timeMultiplier;
 
     [SerializeField]
@@ -77,7 +77,7 @@ public class TimeController : MonoBehaviour
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
 
-        if(timeText != null)
+        if (timeText != null)
         {
             timeText.text = currentTime.ToString("HH:mm");
 
@@ -107,16 +107,17 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
-        } else
+        }
+        else
         {
-            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime,sunriseTime);
+            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime, sunriseTime);
             TimeSpan timeSinceSunset = CalculateTimeDifference(sunsetTime, currentTime.TimeOfDay);
 
             double precentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
 
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)precentage);
-            
+
             RenderSettings.fogDensity = Mathf.Lerp(0, 0.05f, (float)precentage);
 
 
@@ -149,10 +150,7 @@ public class TimeController : MonoBehaviour
             RenderSettings.fog = true;
             OnChangeToNightTime?.Invoke();
             RenderSettings.ambientIntensity = 0f;
-
-
-
         }
-        
+
     }
 }
