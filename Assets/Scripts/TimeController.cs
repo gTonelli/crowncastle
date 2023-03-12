@@ -15,9 +15,6 @@ public class TimeController : MonoBehaviour
     private float startHour;
 
     [SerializeField]
-    private TextMeshProUGUI timeText;
-
-    [SerializeField]
     private Light sunLight;
 
     [SerializeField]
@@ -44,7 +41,10 @@ public class TimeController : MonoBehaviour
     [SerializeField]
     private float maxMoonLightIntensity;
 
-    private DateTime currentTime;
+    [SerializeField]
+    public GameObject playerPrefab;
+
+    public DateTime currentTime;
 
     private TimeSpan sunriseTime;
 
@@ -55,38 +55,34 @@ public class TimeController : MonoBehaviour
     public delegate void ChangeToNightTime();
     public static event ChangeToNightTime OnChangeToNightTime;
 
-    //public static event GameState.ChangeToNightTime OnChangeToNightTime;
-
     void Start()
     {
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
-
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
         IsNight = true;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         UpdateTimeOfDay();
         RotateSun();
+<<<<<<< HEAD
+=======
+        UpdateLightSettings();
+
+>>>>>>> Brandon_dev
     }
 
     private void UpdateTimeOfDay()
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
-
-        if (timeText != null)
-        {
-            timeText.text = currentTime.ToString("HH:mm");
-
-        }
     }
 
-    private TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTIme)
+    private TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTime)
     {
-        TimeSpan difference = toTIme - fromTime;
+        TimeSpan difference = toTime - fromTime;
 
         if (difference.TotalSeconds < 0)
         {
@@ -107,6 +103,11 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
+<<<<<<< HEAD
+=======
+            RenderSettings.fogDensity = Mathf.Lerp(0.05f, 0, (float)precentage*10);
+            IsNight = true;
+>>>>>>> Brandon_dev
         }
         else
         {
@@ -123,13 +124,15 @@ public class TimeController : MonoBehaviour
 
             RenderSettings.fog = true;
 
-            OnChangeToNightTime?.Invoke();
-
+            if (IsNight)
+            {
+                IsNight = false;
+                OnChangeToNightTime?.Invoke();
+            }
         }
 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
     }
-
 
     private void UpdateLightSettings()
     {
@@ -138,6 +141,7 @@ public class TimeController : MonoBehaviour
         moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
         RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAbmientLight, lightChangeCurve.Evaluate(dotProduct));
     }
+<<<<<<< HEAD
 
     private void IsNightTime()
     {
@@ -153,4 +157,6 @@ public class TimeController : MonoBehaviour
         }
 
     }
+=======
+>>>>>>> Brandon_dev
 }
