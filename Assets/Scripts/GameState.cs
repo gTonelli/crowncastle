@@ -5,14 +5,16 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public GameObject gameOverCanvas;
+    public GameObject resourceCanvas;
 
     [SerializeField]
     private int playerHealth;
     private float timeOfLastHit;
     private float minTimeBetweenPlayerHit;
+    private int gold;
 
-    //public delegate void ChangeToNightTime();
-    //public static event ChangeToNightTime OnChangeToNightTime;
+    public delegate void PurchaseArcher();
+    public static event PurchaseArcher OnPurchaseArcher;
 
     private void OnEnable()
     {
@@ -27,6 +29,7 @@ public class GameState : MonoBehaviour
     void Start()
     {
         playerHealth = 5;
+        gold = 0;
         timeOfLastHit = Time.time;
         minTimeBetweenPlayerHit = 2f;
     }
@@ -46,18 +49,18 @@ public class GameState : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-    }
-
     public void RestartGame()
     {
-        print("Yo");
+        // TODO
+        // ...
     }
 
     public void QuitGame()
     {
-        print("Yo");
+        // TODO
+        // ...
     }
+
+
 
 }

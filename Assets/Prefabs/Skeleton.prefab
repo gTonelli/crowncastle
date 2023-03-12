@@ -929,7 +929,7 @@ MonoBehaviour:
   moveSpeed: 3.5
   waitTime: 0.5
   attackTriggerDistance: 2.5
-  health: 2
+  health: 1
 --- !u!136 &533370122
 CapsuleCollider:
   m_ObjectHideFlags: 0
