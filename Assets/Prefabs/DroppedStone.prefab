@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 1441275827458187534}
   - component: {fileID: 1441275827458187535}
   - component: {fileID: 1441275827458187532}
-  m_Layer: 12
+  m_Layer: 15
   m_Name: DroppedStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

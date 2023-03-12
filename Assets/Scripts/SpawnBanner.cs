@@ -14,7 +14,8 @@ public class SpawnBanner : MonoBehaviour
     IEnumerator SpawnArchers(float _delay) {
         
         yield return new WaitForSeconds(_delay);
-        newArcher = Instantiate(Archer, transform.position, transform.rotation);
+        Vector3 dropPos = new Vector3(transform.position.x + Random.Range(1.5f, 3.5f), transform.position.y, transform.position.z - Random.Range(1.5f, 3.5f));
+        newArcher = Instantiate(Archer, dropPos, transform.rotation);
     }
 
     // Update is called once per frame
