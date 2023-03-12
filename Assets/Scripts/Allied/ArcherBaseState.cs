@@ -16,7 +16,7 @@ public abstract class ArcherBaseState
     protected Animator animator;
 
     protected float moveSpeed;
-
+    protected bool canPatrol;
     protected float waitTime;
 
     public virtual void EnterState(ArcherFSM archerFSM)
@@ -27,6 +27,7 @@ public abstract class ArcherBaseState
         animator = archerFSM.animator;
         waitTime = archerFSM.waitTime;
         attackTriggerDistance = archerFSM.attackTriggerDistance;
+        canPatrol = archerFSM.canPatrol;
         rootFSM = archerFSM;
     }
 }

@@ -12,18 +12,18 @@ public class SkeletonAttackState : SkeletonBaseState
 
     private void AttackTarget()
     {
-        try
+        if (agent) agent.isStopped = true;
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isAttacking", true);
+
+        if (target)
         {
-            agent.isStopped = true;
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isAttacking", true);
             rootFSM.gameObject.transform.LookAt(target.transform.position);
             rootFSM.StartCoroutine(AttackingTarget());
         }
-        catch (System.Exception)
+        else
         {
-            Debug.Log("Skeleotn was deleted");
-            throw;
+            rootFSM.ChangeState(rootFSM.moveState);
         }
     }
 
@@ -31,10 +31,8 @@ public class SkeletonAttackState : SkeletonBaseState
     {
         yield return new WaitForSeconds(waitTime);
 
-        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > attackTriggerDistance)
+        if (target == null || Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > attackTriggerDistance)
         {
-            Debug.Log("Attacking");
-
             rootFSM.ChangeState(rootFSM.moveState);
         }
         else

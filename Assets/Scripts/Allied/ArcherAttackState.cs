@@ -7,7 +7,6 @@ public class ArcherAttackState : ArcherBaseState
     public override void EnterState(ArcherFSM archerFSM)
     {
         base.EnterState(archerFSM);
-        Debug.Log("Archer Entered AttackState");
         AttackTarget();
     }
 
@@ -24,7 +23,7 @@ public class ArcherAttackState : ArcherBaseState
         if (target == null || Vector3.Distance(target.transform.position, rootFSM.archerGameObject.transform.position) > attackTriggerDistance)
         {
             target = null;
-            rootFSM.ChangeState(rootFSM.patrolState);
+            rootFSM.ChangeState(rootFSM.idleState);
         }
         else
         {
