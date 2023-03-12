@@ -22,6 +22,8 @@ public class ArcherFSM : MonoBehaviour
     public GameObject target;
     public NavMeshAgent agent;
     public Animator animator;
+    private float timeSinceLastHit;
+    private float timeBetweenHits;
 
     [Header("Assigned In Editor")]
     public GameObject ArrowPrefab;
@@ -46,6 +48,8 @@ public class ArcherFSM : MonoBehaviour
         archerGameObject = this.gameObject;
         animator = GetComponent<Animator>();
         health = 2;
+        timeSinceLastHit = Time.time;
+        timeBetweenHits = 1.33f;
 
         foreach (SkinnedMeshRenderer _ in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
@@ -118,9 +122,10 @@ public class ArcherFSM : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collision archer:" + other.tag);
-        if (other.CompareTag("Skeleton"))
+        if (other.CompareTag("Skeleton") && Time.time - timeBetweenHits > timeSinceLastHit)
         {
             health -= 1;
+            timeSinceLastHit = Time.time;
             if (health <= 0)
             {
                 // Disable animator and AI Agent to ragdoll the skeleton.
