@@ -7,26 +7,31 @@ public class SkeletonAttackState : SkeletonBaseState
     public override void EnterState(SkeletonFSM skeletonFSM)
     {
         base.EnterState(skeletonFSM);
-        Debug.Log("Entered AttackState");
         AttackTarget();
     }
 
     private void AttackTarget()
     {
-        // TODO
-        // ...
-        agent.isStopped = true;
+        if (agent) agent.isStopped = true;
         animator.SetBool("isWalking", false);
         animator.SetBool("isAttacking", true);
-        rootFSM.gameObject.transform.LookAt(target.transform.position);
-        rootFSM.StartCoroutine(AttackingTarget());
+
+        if (target)
+        {
+            rootFSM.gameObject.transform.LookAt(target.transform.position);
+            rootFSM.StartCoroutine(AttackingTarget());
+        }
+        else
+        {
+            rootFSM.ChangeState(rootFSM.moveState);
+        }
     }
 
     IEnumerator AttackingTarget()
     {
         yield return new WaitForSeconds(waitTime);
 
-        if (Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > chaseTriggerDistance)
+        if (target == null || Vector3.Distance(rootFSM.skeletonGameObject.transform.position, target.transform.position) > attackTriggerDistance)
         {
             rootFSM.ChangeState(rootFSM.moveState);
         }

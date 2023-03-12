@@ -7,36 +7,23 @@ public class ArcherAttackState : ArcherBaseState
     public override void EnterState(ArcherFSM archerFSM)
     {
         base.EnterState(archerFSM);
-        Debug.Log("Archer Entered AttackState");
         AttackTarget();
     }
 
     private void AttackTarget()
     {
-        // TODO
-        // ...
-
         animator.SetBool("isWalking", false);
         animator.SetBool("isAttacking", true);
-
-        if (targets.GetLength(1) > 0)
-        {
-            // TODO
-            rootFSM.gameObject.transform.LookAt(targets[0].transform.position);
-        }
         rootFSM.StartCoroutine(AttackingTarget());
     }
 
     IEnumerator AttackingTarget()
     {
         yield return new WaitForSeconds(waitTime);
-
-        if (false)
+        if (target == null || Vector3.Distance(target.transform.position, rootFSM.archerGameObject.transform.position) > attackTriggerDistance)
         {
-            // TODO
-            Debug.Log("Attacking");
-
-            rootFSM.ChangeState(rootFSM.patrolState);
+            target = null;
+            rootFSM.ChangeState(rootFSM.idleState);
         }
         else
         {

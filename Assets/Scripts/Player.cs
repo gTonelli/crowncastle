@@ -127,7 +127,7 @@ public class Player : MonoBehaviour {
         float playerRadius = 0.7f;
         float playerHeight = 0.3f;
         if (isMining == false) {
-            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
+            // canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
 
             if (!canMove) {
                 //Cannot move towards moveDir

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
+    public GameObject gameOverCanvas;
+
     [SerializeField]
     private int playerHealth;
     private float timeOfLastHit;
@@ -35,19 +37,27 @@ public class GameState : MonoBehaviour
         {
             playerHealth -= 1;
             timeOfLastHit = Time.time;
-            Debug.Log("Player was hit and has " + playerHealth + " HP");
 
             if (playerHealth <= 0)
             {
-                // TODO
-                Debug.Log("Game Over");
                 Time.timeScale = 0.1f;
+                gameOverCanvas.SetActive(true);
             }
         }
     }
 
     void Update()
     {
+    }
+
+    public void RestartGame()
+    {
+        print("Yo");
+    }
+
+    public void QuitGame()
+    {
+        print("Yo");
     }
 
 }
