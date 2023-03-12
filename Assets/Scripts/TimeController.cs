@@ -52,42 +52,25 @@ public class TimeController : MonoBehaviour
 
     private TimeSpan sunsetTime;
 
-
-
     private bool IsNight;
-
-    private bool IsMined;
-
-    ResourceController resourceController = new ResourceController();
 
     public delegate void ChangeToNightTime();
     public static event ChangeToNightTime OnChangeToNightTime;
 
-/*    public delegate void RespawnResources();
-    public static event RespawnResources Resources;*/
-
-    RespawnResources respawnResources = new RespawnResources();
-
-
-
-
     void Start()
     {
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
-        respawnResources.cT = DateTime.Now.Date + TimeSpan.FromHours(startHour);
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
         IsNight = true;
-        IsMined = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         UpdateTimeOfDay();
         RotateSun();
         UpdateLightSettings();
-        IsNightTime();
 
     }
 
@@ -119,7 +102,8 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
-            RenderSettings.fog = false;
+            RenderSettings.fogDensity = Mathf.Lerp(0.05f, 0, (float)precentage*10);
+            IsNight = true;
         }
         else
         {
@@ -130,19 +114,21 @@ public class TimeController : MonoBehaviour
 
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)precentage);
-            
+
             RenderSettings.fogDensity = Mathf.Lerp(0, 0.05f, (float)precentage);
 
 
             RenderSettings.fog = true;
 
-            OnChangeToNightTime?.Invoke();
-
+            if (IsNight)
+            {
+                IsNight = false;
+                OnChangeToNightTime?.Invoke();
+            }
         }
 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
     }
-
 
     private void UpdateLightSettings()
     {
@@ -152,21 +138,4 @@ public class TimeController : MonoBehaviour
         RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAbmientLight, lightChangeCurve.Evaluate(dotProduct));
 
     }
-
-    private void IsNightTime()
-    {
-
-        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && IsNight)
-        {
-            IsNight = false;
-            RenderSettings.fogDensity = 0.001f;
-
-            RenderSettings.fog = true;
-            OnChangeToNightTime?.Invoke();
-            RenderSettings.ambientIntensity = 0f;
-
-        }
-        
-    }
-
 }
