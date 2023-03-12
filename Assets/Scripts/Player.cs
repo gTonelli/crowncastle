@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -17,20 +18,41 @@ public class Player : MonoBehaviour {
         public Collectable selectedCollectable;
     }
 
+    public event EventHandler<OnSelectedBannerChangedEventArgs> OnSelectedBannerChanged;
+    public class OnSelectedBannerChangedEventArgs : EventArgs {
+        public SpawnBanner selectedBanner;
+    }
+
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
+
     [SerializeField] private LayerMask stoneLayerMask;
-    [SerializeField] private LayerMask CollectableMask;
+    [SerializeField] private LayerMask collectableMask;
+    [SerializeField] private LayerMask spawnerMask;
+
     [SerializeField] private AudioSource footstepSound;
     [SerializeField] private AudioSource mineOrderSound;
+    [SerializeField] private AudioSource firstGoldPick;
+    [SerializeField] private AudioSource firstStonePick;
 
     public bool isWalking;
     public bool isMining;
+    public bool isPicking;
+
     private Vector3 lastInteractDir;
+
     private StonePile selectedPile;
     private Collectable selectedCollectable;
+    private SpawnBanner selectedBanner;
+
+    public int Gold = 0;
+    public int Stone = 0;
+
+    public Text GoldCount;
+    public Text StoneCount;
 
     public bool canMove;
+    public bool initialised;
 
     private void Awake() {
         if (Instance != null) {
@@ -48,25 +70,33 @@ public class Player : MonoBehaviour {
             selectedPile.Interact();
             isMining = true;
         }
+
+        if (selectedCollectable != null) {
+            selectedCollectable.Interact();
+            isPicking = true;
+        }
+
+        if (selectedBanner != null) {
+            selectedBanner.Interact();
+        }
+
+        FirstPickSound();
     }
 
     private void Update() {
-        Debug.Log("isMining: " + isMining);
-        if (!isMining) {
+        MoveIfNotMining();
+        PlayerInteractions();
+        WalkingSound();
+        SetUIText();
+    }
+
+    private void MoveIfNotMining() {
+        if (!isMining && !isPicking) {
             PlayerMovement();
-            Debug.Log("Not Mining");
             mineOrderSound.enabled = false;
-        } else {
-            Debug.Log("Mining");
+        } else if (isMining){
             mineOrderSound.enabled = true;
         }
-        PlayerInteractions();
-        if (isWalking) {
-            footstepSound.enabled = true;
-        } else {
-            footstepSound.enabled = false;
-        }
-
     }
 
     public bool IsWalking() {
@@ -77,6 +107,9 @@ public class Player : MonoBehaviour {
         return isMining;
     }
 
+    public bool IsPicking() {
+        return isPicking;
+    }
 
     private void PlayerInteractions() {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -89,8 +122,8 @@ public class Player : MonoBehaviour {
 
         float interactDistance = 2f;
 
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHitPile, interactDistance, stoneLayerMask)) {
-            if (raycastHitPile.transform.TryGetComponent(out StonePile stonePile)) {
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, stoneLayerMask)) {
+            if (raycastHit.transform.TryGetComponent(out StonePile stonePile)) {
                 if (stonePile != selectedPile) {
                     SetSelectedPile(stonePile);
                 }
@@ -102,10 +135,10 @@ public class Player : MonoBehaviour {
 
         }
 
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHitCollectable, interactDistance, CollectableMask)) {
-            if (raycastHitCollectable.transform.TryGetComponent(out Collectable collectable)) {
+        if (Physics.Raycast(transform.position, lastInteractDir, out raycastHit, interactDistance, collectableMask)) {
+            if (raycastHit.transform.TryGetComponent(out Collectable collectable)) {
                 if (collectable != selectedCollectable) {
-                    SetSelectedCollectable(selectedCollectable);
+                    SetSelectedCollectable(collectable);
                 }
             } else {
                 SetSelectedCollectable(null);
@@ -115,7 +148,23 @@ public class Player : MonoBehaviour {
 
         }
 
-        Debug.Log(selectedPile);
+        if (Physics.Raycast(transform.position, lastInteractDir, out raycastHit, interactDistance)) {
+            if (raycastHit.transform.TryGetComponent(out SpawnBanner spawnBanner)) {
+                if (spawnBanner != selectedBanner) {
+                    SetSelectedBanner(spawnBanner);
+                }
+            } else {
+                SetSelectedBanner(null);
+            }
+        } else {
+            SetSelectedBanner(null);
+
+        }
+        Debug.Log(raycastHit.transform);
+
+        /*Debug.Log(selectedPile);
+        Debug.Log(selectedCollectable);*/
+        //Debug.Log(selectedBanner);
     }
 
     private void PlayerMovement() {
@@ -126,8 +175,8 @@ public class Player : MonoBehaviour {
         float moveDistance = moveSpeed * Time.deltaTime;
         float playerRadius = 0.7f;
         float playerHeight = 0.3f;
-        if (isMining == false) {
-            // canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
+        if (isMining == false && isPicking == false && initialised == true) {
+            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
 
             if (!canMove) {
                 //Cannot move towards moveDir
@@ -178,5 +227,40 @@ public class Player : MonoBehaviour {
         OnSelectedCollectableChanged?.Invoke(this, new OnSelectedCollectableChangedEventArgs {
             selectedCollectable = selectedCollectable
         });
+    }
+
+    private void SetSelectedBanner(SpawnBanner selectedBanner) {
+        this.selectedBanner = selectedBanner;
+        
+        OnSelectedBannerChanged?.Invoke(this, new OnSelectedBannerChangedEventArgs {
+            selectedBanner = selectedBanner
+        });
+    }
+
+    private void SetUIText() {
+        if (GoldCount != null) {
+            GoldCount.text = Gold.ToString();
+        }
+        if (StoneCount != null) {
+            StoneCount.text = Stone.ToString();
+        }
+    }
+
+    private void WalkingSound() {
+        if (isWalking) {
+            footstepSound.enabled = true;
+        } else {
+            footstepSound.enabled = false;
+        }
+    }
+
+    private void FirstPickSound() {
+        if (Gold > 0) {
+            firstGoldPick.enabled = true;
+        }
+
+        if (Stone > 0) {
+            firstStonePick.enabled = true;
+        }
     }
 }

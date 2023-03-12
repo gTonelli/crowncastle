@@ -6,6 +6,7 @@ public class PlayerAnimator : MonoBehaviour{
 
     private const string IS_WALKING = "IsWalking";
     private const string MINING_ORDER = "MiningOrder";
+    private const string PICKING_UP = "PickingUp";
 
     [SerializeField] private Player player;
 
@@ -22,6 +23,10 @@ public class PlayerAnimator : MonoBehaviour{
             player.canMove = false;
             StartMining();
         }
+        if (player.IsPicking()) {
+            player.canMove = false;
+            StartPicking();
+        }
     }
 
     private void StartMining() {
@@ -30,11 +35,24 @@ public class PlayerAnimator : MonoBehaviour{
         StartCoroutine(DelayMining(2.750f));
     }
 
+    private void StartPicking() {
+        animator.SetBool(IS_WALKING, false);
+        animator.SetTrigger(PICKING_UP);
+        StartCoroutine(DelayPicking(2.533f));
+    }
+
     IEnumerator DelayMining(float _delay) {
         yield return new WaitForSeconds(_delay);
         player.isMining = false;
         animator.SetBool(IS_WALKING, player.IsWalking());
         animator.ResetTrigger(MINING_ORDER);
+    }
+
+    IEnumerator DelayPicking(float _delay) {
+        yield return new WaitForSeconds(_delay);
+        player.isPicking = false;
+        animator.SetBool(IS_WALKING, player.IsWalking());
+        animator.ResetTrigger(PICKING_UP);
     }
 }
 
