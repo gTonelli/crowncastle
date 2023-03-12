@@ -2914,10 +2914,11 @@ MonoBehaviour:
   target: {fileID: 0}
   agent: {fileID: 0}
   animator: {fileID: 0}
+  canPatrol: 1
   ArrowPrefab: {fileID: 111768, guid: eb577e269432d4348987c1dbc3eee283, type: 3}
   moveSpeed: 2.75
   waitTime: 0.25
-  attackTriggerDistance: 10
+  attackTriggerDistance: 20
   arrowSpeed: 1
   arrowRenderer: {fileID: 4466229223540746597}
 --- !u!195 &2641325861832760416

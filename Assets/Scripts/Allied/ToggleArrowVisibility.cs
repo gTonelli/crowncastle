@@ -23,7 +23,7 @@ public class ToggleArrowVisibility : MonoBehaviour
         {
             if (clip.name == "ShootingArrow")
             {
-                if (clip.events.Length < 1)
+                if (clip.events.Length < 3)
                 {
                     animationClip = clip;
                     animationClip.AddEvent(setArrowVisibleEvent);
