@@ -26,8 +26,8 @@ public class ResourceManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        stone = stonePile.GetAmount() * 8;
+        //stone = stonePile.GetAmount() * 8;
         stoneText.text = stone.ToString();
     }
-  
+
 }

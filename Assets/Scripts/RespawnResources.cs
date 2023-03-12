@@ -35,11 +35,11 @@ public class RespawnResources : MonoBehaviour
     }
     private void OnEnable()
     {
-        StonePile.Mined += Respawn;
+        //StonePile.Mined += Respawn;
     }
 
     private void OnDisabled()
     {
-        StonePile.Mined -= Respawn;
+        //StonePile.Mined -= Respawn;
     }
 }

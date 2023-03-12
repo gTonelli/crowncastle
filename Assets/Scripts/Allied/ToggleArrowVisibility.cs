@@ -14,20 +14,21 @@ public class ToggleArrowVisibility : MonoBehaviour
         GetComponent<Renderer>().enabled = false;
         AnimationClip animationClip;
         AnimationEvent setArrowVisibleEvent = new AnimationEvent(), setArrowInvisibleEvent = new AnimationEvent();
-        setArrowVisibleEvent.time = 0.45f;
-        setArrowVisibleEvent.functionName = "ToggleArrow";
+        setArrowVisibleEvent.time = 0.95f;
+        setArrowVisibleEvent.functionName = "ToggleArrowOn";
         setArrowInvisibleEvent.time = ArcherFSM.arrowReleaseTime;
-        setArrowInvisibleEvent.functionName = "ToggleArrow";
+        setArrowInvisibleEvent.functionName = "ToggleArrowOff";
 
         foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
         {
             if (clip.name == "ShootingArrow")
             {
-                if (clip.events.Length < 3)
+                if (clip.events.Length <= 3)
                 {
                     animationClip = clip;
                     animationClip.AddEvent(setArrowVisibleEvent);
                     animationClip.AddEvent(setArrowInvisibleEvent);
+                    print("Event added");
                     break;
                 }
             }

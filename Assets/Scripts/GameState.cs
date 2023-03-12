@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class GameState : MonoBehaviour
 {
     public GameObject gameOverCanvas;
     public GameObject resourceCanvas;
+    public GameObject[] archersToInitialize;
 
     [SerializeField]
     private int playerHealth;
@@ -32,6 +34,8 @@ public class GameState : MonoBehaviour
         gold = 0;
         timeOfLastHit = Time.time;
         minTimeBetweenPlayerHit = 2f;
+
+        InitializeArchers();
     }
 
     void DamagePlayer()
@@ -61,6 +65,15 @@ public class GameState : MonoBehaviour
         // ...
     }
 
+    private async void InitializeArchers()
+    {
+        await Task.Delay(1000);
 
+        foreach (GameObject obj in archersToInitialize)
+        {
+            await Task.Delay(1000);
+            obj.SetActive(true);
+        }
+    }
 
 }

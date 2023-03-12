@@ -68,11 +68,8 @@ public class TimeController : MonoBehaviour
     {
         UpdateTimeOfDay();
         RotateSun();
-<<<<<<< HEAD
-=======
         UpdateLightSettings();
 
->>>>>>> Brandon_dev
     }
 
     private void UpdateTimeOfDay()
@@ -103,11 +100,8 @@ public class TimeController : MonoBehaviour
             double precentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)precentage);
-<<<<<<< HEAD
-=======
-            RenderSettings.fogDensity = Mathf.Lerp(0.05f, 0, (float)precentage*10);
+            RenderSettings.fogDensity = Mathf.Lerp(0.05f, 0, (float)precentage * 10);
             IsNight = true;
->>>>>>> Brandon_dev
         }
         else
         {
@@ -141,22 +135,4 @@ public class TimeController : MonoBehaviour
         moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
         RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAbmientLight, lightChangeCurve.Evaluate(dotProduct));
     }
-<<<<<<< HEAD
-
-    private void IsNightTime()
-    {
-
-        if ((currentTime.TimeOfDay < sunriseTime || currentTime.TimeOfDay > sunsetTime) && IsNight)
-        {
-            IsNight = false;
-            RenderSettings.fogDensity = 0.001f;
-
-            RenderSettings.fog = true;
-            OnChangeToNightTime?.Invoke();
-            RenderSettings.ambientIntensity = 0f;
-        }
-
-    }
-=======
->>>>>>> Brandon_dev
 }
