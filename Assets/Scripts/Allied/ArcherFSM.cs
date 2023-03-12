@@ -79,8 +79,7 @@ public class ArcherFSM : MonoBehaviour
             }
         }
 
-        if (canPatrol) ChangeState(patrolState);
-        else ChangeState(idleState);
+        ChangeState(idleState);
     }
 
     public void ChangeState(ArcherBaseState state)
@@ -114,9 +113,14 @@ public class ArcherFSM : MonoBehaviour
         }
     }
 
-    public void ToggleArrow()
+    public void ToggleArrowOff()
     {
-        arrowRenderer.enabled = !arrowRenderer.enabled;
+        arrowRenderer.enabled = false;
+    }
+
+    public void ToggleArrowOn()
+    {
+        arrowRenderer.enabled = true;
     }
 
     void OnTriggerEnter(Collider other)
