@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 
 public class GameState : MonoBehaviour
@@ -13,7 +14,6 @@ public class GameState : MonoBehaviour
     private int playerHealth;
     private float timeOfLastHit;
     private float minTimeBetweenPlayerHit;
-    private int gold;
 
     public delegate void PurchaseArcher();
     public static event PurchaseArcher OnPurchaseArcher;
@@ -31,7 +31,6 @@ public class GameState : MonoBehaviour
     void Start()
     {
         playerHealth = 5;
-        gold = 0;
         timeOfLastHit = Time.time;
         minTimeBetweenPlayerHit = 2f;
 
@@ -55,14 +54,12 @@ public class GameState : MonoBehaviour
 
     public void RestartGame()
     {
-        // TODO
-        // ...
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
     {
-        // TODO
-        // ...
+        Application.Quit();
     }
 
     private async void InitializeArchers()
