@@ -300,6 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaf3f59b9bba0147b716feb960bf55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldStockpile: {fileID: 9104247854451641334, guid: 76008253325201848b48b7975ac5a336,
+    type: 3}
   collectableType: 1
   PickSound: {fileID: 1582135363}
 --- !u!82 &1582135363

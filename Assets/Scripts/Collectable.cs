@@ -7,6 +7,10 @@ using Random = UnityEngine.Random;
 
 public class Collectable : MonoBehaviour
 {
+
+    public Stockpile goldStockpile;
+    public Stockpile stoneStockpile;
+    
     enum CollectableType {
         Stone,
         Gold
@@ -23,9 +27,19 @@ public class Collectable : MonoBehaviour
     IEnumerator CollectablePickUp(float _delay) {
         PickSound.enabled = true;
         if (collectableType == CollectableType.Stone) {
-            Player.Instance.Stone = Player.Instance.Stone + Random.Range(1, 3);
+            int randomStone = Random.Range(1, 3);
+            Player.Instance.Stone = Player.Instance.Stone + randomStone;
+
+            for (int i = 0; i < randomStone; i++) {
+                stoneStockpile.SpawnCollectedStone();
+            }
         } else if (collectableType == CollectableType.Gold) {
-            Player.Instance.Gold = Player.Instance.Gold + Random.Range(1, 3);
+            int randomGold = Random.Range(1, 3);
+            Player.Instance.Gold = Player.Instance.Gold + randomGold;
+            
+            for (int i = 0; i < randomGold; i++) {
+                goldStockpile.SpawnCollectedGold();
+            }
         }
         yield return new WaitForSeconds(_delay);
         Destroy(gameObject);

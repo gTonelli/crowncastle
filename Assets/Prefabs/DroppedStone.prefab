@@ -198,8 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaf3f59b9bba0147b716feb960bf55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldStockpile: {fileID: 0}
+  stoneStockpile: {fileID: 1797067922845973972, guid: 51dd359f2956cbb428961942a8ffc86a,
+    type: 3}
   collectableType: 0
-  PickSound: {fileID: 0}
+  PickSound: {fileID: 1441275827458187535}
 --- !u!82 &1441275827458187535
 AudioSource:
   m_ObjectHideFlags: 0

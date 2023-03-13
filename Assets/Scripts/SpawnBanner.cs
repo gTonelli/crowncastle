@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class SpawnBanner : MonoBehaviour
 {
     [SerializeField] private AudioSource NotEnoughSound;
+    public Stockpile goldStockpile;
 
     [SerializeField] private GameObject Archer;
     private GameObject newArcher = null;
@@ -13,6 +15,11 @@ public class SpawnBanner : MonoBehaviour
         if (Player.Instance.Gold >= 2) {
             Player.Instance.Gold = Player.Instance.Gold - 2;
             StartCoroutine(SpawnArchers(.2f));
+            
+            foreach (GameObject deleteGold in Stockpile.goldStock.stockpileGoldPieces) {
+                Destroy(deleteGold);
+            }
+
         } else if (Player.Instance.Gold < 2) {
             NotEnoughSound.enabled = true;
             NotEnoughSound.Play();

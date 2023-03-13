@@ -31,6 +31,7 @@ public class ArcherFSM : MonoBehaviour
     public float waitTime;
     public float attackTriggerDistance;
     public float arrowSpeed;
+    public GameObject fireParticle;
     public bool canPatrol = true;
 
     // This is the time in the animation when the arrow should be released. Also accessed by ToggleArrowVisibility.cs
@@ -109,12 +110,14 @@ public class ArcherFSM : MonoBehaviour
             Quaternion arrowRotation = arrowRenderer.gameObject.transform.rotation;
             GameObject arrow = Instantiate(ArrowPrefab, arrowRenderer.gameObject.transform.position, arrowRotation);
             arrow.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position) * arrowSpeed, ForceMode.Impulse);
+            fireParticle.SetActive(false);
             Destroy(arrow, 2.5f);
         }
     }
 
     public void ToggleArrowOff()
     {
+        fireParticle.SetActive(true);
         arrowRenderer.enabled = false;
     }
 
