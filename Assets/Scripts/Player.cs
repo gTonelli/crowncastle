@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private AudioSource mineOrderSound;
     [SerializeField] private AudioSource firstGoldPick;
     [SerializeField] private AudioSource firstStonePick;
+    [SerializeField] private AudioSource gameStartSound;
 
     public bool isWalking;
     public bool isMining;
@@ -84,6 +85,9 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
+        if (initialised) {
+            gameStartSound.enabled = true;
+        }
         MoveIfNotMining();
         PlayerInteractions();
         WalkingSound();
@@ -173,7 +177,7 @@ public class Player : MonoBehaviour {
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
         float moveDistance = moveSpeed * Time.deltaTime;
-        float playerRadius = 0.7f;
+        float playerRadius = 0.3f;
         float playerHeight = 0.3f;
         if (isMining == false && isPicking == false && initialised == true) {
             // canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
