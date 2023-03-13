@@ -23,12 +23,24 @@ public class Player : MonoBehaviour {
         public SpawnBanner selectedBanner;
     }
 
+    public event EventHandler<OnSelectedPostChangedEventArgs> OnSelectedPostChanged;
+    public class OnSelectedPostChangedEventArgs : EventArgs {
+        public KeepUpgrade selectedPost;
+    }
+
+    public event EventHandler<OnSelectedCatChangedEventArgs> OnSelectedCatChanged;
+    public class OnSelectedCatChangedEventArgs : EventArgs {
+        public CatapultGuy selectedCat;
+    }
+
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
 
     [SerializeField] private LayerMask stoneLayerMask;
     [SerializeField] private LayerMask collectableMask;
     [SerializeField] private LayerMask spawnerMask;
+    [SerializeField] private LayerMask postMask;
+    [SerializeField] private LayerMask catapultsControllerMask;
 
     [SerializeField] private AudioSource footstepSound;
     [SerializeField] private AudioSource mineOrderSound;
@@ -45,9 +57,11 @@ public class Player : MonoBehaviour {
     private StonePile selectedPile;
     private Collectable selectedCollectable;
     private SpawnBanner selectedBanner;
+    private KeepUpgrade selectedPost;
+    private CatapultGuy selectedCat;
 
-    public int Gold = 0;
-    public int Stone = 0;
+    public int Gold = 2;
+    public int Stone = 12;
 
     public Text GoldCount;
     public Text StoneCount;
@@ -79,6 +93,14 @@ public class Player : MonoBehaviour {
 
         if (selectedBanner != null) {
             selectedBanner.Interact();
+        }
+
+        if (selectedPost != null) {
+            selectedPost.Interact();
+        }
+
+        if (selectedCat != null) {
+            selectedCat.Interact();
         }
 
         FirstPickSound();
@@ -152,7 +174,7 @@ public class Player : MonoBehaviour {
 
         }
 
-        if (Physics.Raycast(transform.position, lastInteractDir, out raycastHit, interactDistance)) {
+        if (Physics.Raycast(transform.position, lastInteractDir, out raycastHit, interactDistance, spawnerMask)) {
             if (raycastHit.transform.TryGetComponent(out SpawnBanner spawnBanner)) {
                 if (spawnBanner != selectedBanner) {
                     SetSelectedBanner(spawnBanner);
@@ -164,6 +186,33 @@ public class Player : MonoBehaviour {
             SetSelectedBanner(null);
 
         }
+
+        if (Physics.Raycast(transform.position, lastInteractDir, out raycastHit, interactDistance, postMask)) {
+            if (raycastHit.transform.TryGetComponent(out KeepUpgrade upgradePost)) {
+                if (upgradePost != selectedPost) {
+                    SetSelectedPost(upgradePost);
+                }
+            } else {
+                SetSelectedPost(null);
+            }
+        } else {
+            SetSelectedPost(null);
+
+        }
+
+        if (Physics.Raycast(transform.position, lastInteractDir, out raycastHit, interactDistance, catapultsControllerMask)) {
+            if (raycastHit.transform.TryGetComponent(out CatapultGuy catapultGuy)) {
+                if (catapultGuy != selectedCat) {
+                    SetSelectedCat(catapultGuy);
+                }
+            } else {
+                SetSelectedCat(null);
+            }
+        } else {
+            SetSelectedCat(null);
+
+        }
+
         Debug.Log(raycastHit.transform);
 
         /*Debug.Log(selectedPile);
@@ -238,6 +287,22 @@ public class Player : MonoBehaviour {
         
         OnSelectedBannerChanged?.Invoke(this, new OnSelectedBannerChangedEventArgs {
             selectedBanner = selectedBanner
+        });
+    }
+
+    private void SetSelectedPost(KeepUpgrade selectedPost) {
+        this.selectedPost = selectedPost;
+
+        OnSelectedPostChanged?.Invoke(this, new OnSelectedPostChangedEventArgs {
+            selectedPost = selectedPost
+        });
+    }
+
+    private void SetSelectedCat(CatapultGuy selectedCat) {
+        this.selectedCat = selectedCat;
+
+        OnSelectedCatChanged?.Invoke(this, new OnSelectedCatChangedEventArgs {
+            selectedCat = selectedCat
         });
     }
 

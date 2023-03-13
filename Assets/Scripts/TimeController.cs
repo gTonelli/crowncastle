@@ -121,6 +121,7 @@ public class TimeController : MonoBehaviour
             if (IsNight)
             {
                 IsNight = false;
+                
                 OnChangeToNightTime?.Invoke();
             }
         }

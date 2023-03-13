@@ -5,8 +5,8 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
 
-    public delegate void ChangeToNightTime();
-    public static event ChangeToNightTime OnChangeToNightTime;
+    /*private delegate void ChangeToNightTime();
+    private static event ChangeToNightTime OnChangeToNightTime;
 
     void Update()
     {
@@ -14,5 +14,5 @@ public class EventManager : MonoBehaviour
         {
             OnChangeToNightTime?.Invoke(); // #TODO 
         }
-    }
+    }*/
 }

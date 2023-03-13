@@ -7,37 +7,55 @@ public class TrebuchetOperator : MonoBehaviour
     public Rigidbody weight;
     public GameObject projectile;
     public ParticleSystem ps;
+    public bool activate = false;
+    private int kinematicstart = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        ps = GameObject.Find("GroundExplosion").GetComponent<ParticleSystem>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        Debug.Log("weight.isKinematic: " + weight.isKinematic);
+
+        if (activate) {
+            kinematicstart++;
             //release the weight
-            weight.isKinematic = false;
+            if (kinematicstart == 1) {
+                weight.isKinematic = false;
+            }
+            StartCoroutine(LaunchTrebuchet(0.7f));
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            //launch projectile
+        IEnumerator LaunchTrebuchet(float _delay) {
 
+            yield return new WaitForSeconds(_delay);
             HingeJoint hingeToDestroy;
-            hingeToDestroy = projectile.GetComponent<HingeJoint>();
+            if (projectile != null) {
+                hingeToDestroy = projectile.GetComponent<HingeJoint>();
 
-            Destroy(hingeToDestroy);
+                Destroy(hingeToDestroy);
+                StartCoroutine(detach(0.5f));
+            }
+        }
+        
+        IEnumerator detach(float _delay) {
+
+            yield return new WaitForSeconds(_delay);
+            weight.isKinematic = true;
+            if (projectile != null) {
+                if (projectile.transform.position.y < 0.25) {
+                    Vector3 dropPos = new Vector3(projectile.transform.position.x, projectile.transform.position.y, projectile.transform.position.z);
+                    ParticleSystem dropParticle = Instantiate(ps, dropPos, transform.rotation);
+                    dropParticle.Play();
+                    Destroy(projectile.gameObject);
+                }
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //play explosion
-            ps.Play();
-            Destroy(projectile.gameObject);
-        }
+        
     }
 }

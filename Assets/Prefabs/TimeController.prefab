@@ -44,13 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeMultiplier: 720
-  startHour: 18
-  timeText: {fileID: 0}
+  startHour: 8
   sunLight: {fileID: 0}
   sunriseHour: 7
   sunsetHour: 20
-  dayAbmientLight: {r: 0.126691, g: 0.6886792, b: 0.67146534, a: 0}
-  nightAmbientLight: {r: 0.25109023, g: 0.10208259, b: 0.6981132, a: 0}
+  dayAbmientLight: {r: 0.73558205, g: 0.8962264, b: 0.8906485, a: 0}
+  nightAmbientLight: {r: 0.38999644, g: 0.34389463, b: 0.5283019, a: 0}
   lightChangeCurve:
     serializedVersion: 2
     m_Curve:
@@ -86,4 +85,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxSunLightIntensity: 1
   moonLight: {fileID: 0}
-  maxMoonLightIntensity: 0.1
+  maxMoonLightIntensity: 0.2
+  playerPrefab: {fileID: 0}

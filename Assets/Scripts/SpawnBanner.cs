@@ -8,8 +8,8 @@ public class SpawnBanner : MonoBehaviour
     [SerializeField] private AudioSource NotEnoughSound;
     public Stockpile goldStockpile;
 
-    [SerializeField] private GameObject Archer;
-    private GameObject newArcher = null;
+    [SerializeField] private ArcherFSM Archer;
+    private ArcherFSM newArcher = null;
 
     public void Interact() {
         if (Player.Instance.Gold >= 2) {

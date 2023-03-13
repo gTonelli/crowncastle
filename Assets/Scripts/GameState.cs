@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
     public GameObject gameOverCanvas;
     public GameObject resourceCanvas;
+    public GameObject diedCanvas;
+        
     public GameObject[] archersToInitialize;
 
     [SerializeField]
@@ -48,7 +51,10 @@ public class GameState : MonoBehaviour
             if (playerHealth <= 0)
             {
                 Time.timeScale = 0.1f;
-                gameOverCanvas.SetActive(true);
+                resourceCanvas.SetActive(false);
+                diedCanvas.SetActive(true);
+                /*
+                gameOverCanvas.SetActive(true);*/
             }
         }
     }
@@ -56,13 +62,13 @@ public class GameState : MonoBehaviour
     public void RestartGame()
     {
         // TODO
-        // ...
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
     {
         // TODO
-        // ...
+        Application.Quit();
     }
 
     private async void InitializeArchers()

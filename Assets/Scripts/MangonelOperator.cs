@@ -7,6 +7,7 @@ public class MangonelOperator : MonoBehaviour
 
     public Rigidbody weight;
     public GameObject cannonball, cannonball1, cannonball2, cannonball3, cannonball4, cannonball5;
+    public bool activate = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +18,8 @@ public class MangonelOperator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightControl))
-        {
+        if (activate) {
+            
             //release the weight
             weight.isKinematic = false;
 
@@ -38,11 +39,5 @@ public class MangonelOperator : MonoBehaviour
             Destroy(fixedToDestroy4);
             Destroy(fixedToDestroy5);
         }
-
-        // if (Input.GetKeyDown(KeyCode.Escape))
-        // {
-        //     //destroy projectiles
-        //     //Destroy(cannonball.gameObject);
-        // }
     }
 }

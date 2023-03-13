@@ -117,13 +117,13 @@ public class ArcherFSM : MonoBehaviour
 
     public void ToggleArrowOff()
     {
-        fireParticle.SetActive(true);
         arrowRenderer.enabled = false;
     }
 
     public void ToggleArrowOn()
     {
         arrowRenderer.enabled = true;
+        fireParticle.SetActive(true);
     }
 
     void OnTriggerEnter(Collider other)
