@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class SpawnBanner : MonoBehaviour
 {
+    [SerializeField] private AudioSource NotEnoughSound;
+
     [SerializeField] private GameObject Archer;
     private GameObject newArcher = null;
 
     public void Interact() {
-        StartCoroutine(SpawnArchers(.2f));
+        if (Player.Instance.Gold >= 2) {
+            Player.Instance.Gold = Player.Instance.Gold - 2;
+            StartCoroutine(SpawnArchers(.2f));
+        } else if (Player.Instance.Gold < 2) {
+            NotEnoughSound.enabled = true;
+            NotEnoughSound.Play();
+        }
     }
 
     IEnumerator SpawnArchers(float _delay) {
